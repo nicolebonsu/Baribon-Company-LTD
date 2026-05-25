@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baribon Company Ltd | Executive Living Accra</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --obsidian: #1A1A1A;
+            --gold: #C5A059;
+            --alabaster: #FAFAFA;
+            --charcoal: #262626;
+            --soft-white: #FFFFFF;
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--alabaster);
+            color: var(--obsidian);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            padding: 1.5rem 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(250, 250, 250, 0.98);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .brand-block { display: flex; align-items: center; gap: 15px; text-decoration: none; color: inherit; cursor: pointer; }
+        .logo-container { width: 60px; height: 60px; }
+        .text-block { display: flex; flex-direction: column; line-height: 1; }
+        .brand-main { font-family: 'Playfair Display', serif; font-size: 1.8rem; letter-spacing: 5px; font-weight: 700; color: var(--gold); text-transform: uppercase; }
+        .brand-sub { font-size: 0.65rem; letter-spacing: 2px; font-weight: 600; margin-top: 4px; text-transform: uppercase; }
+        .brand-tagline { font-size: 0.45rem; letter-spacing: 1.5px; color: #888; margin-top: 2px; text-transform: uppercase; }
+
+        .nav-links a {
+            color: var(--obsidian);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 400;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .nav-links a:hover { color: var(--gold); }
+
+        <!        /* --- Viewport Architecture --- */
+        main { padding-top: 100px; }
+        .page-view { display: none; }
+        .page-view.active { display: block; }
+
+        /* --- Home View --- */
+        .hero {
+            height: calc(100vh - 100px);
+            display: flex;
+            align-items: center;
+            padding: 0 8%;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                        url('https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1600') no-repeat center center/cover;
+            color: white;
+        }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.1; margin-bottom: 2rem; }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin-bottom: 3rem; font-weight: 300; }
+        .btn-gold { padding: 1.2rem 3rem; background: var(--gold); color: white; text-decoration: none; text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; transition: var(--transition); border: none; cursor: pointer; display: inline-block;}
+        .btn-gold:hover { background: var(--obsidian); }
+
+        /* --- Main Portfolio Directory --- */
+        .directory-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 40px; padding: 80px 8%; }
+        .directory-item { position: relative; height: 650px; overflow: hidden; cursor: pointer; }
+        .directory-item img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+        .directory-item:hover img { transform: scale(1.05); }
+        .directory-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 50px 40px; background: linear-gradient(transparent, rgba(0,0,0,0.85)); color: white; }
+        .directory-overlay h3 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 10px; }
+        .directory-overlay p { text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; color: var(--gold); }
+
+        /* --- Lookbook Layout (Portfolio Subpages) --- */
+        .lookbook-header { padding: 100px 8% 60px; text-align: center; max-width: 900px; margin: 0 auto; }
+        .lookbook-header h2 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; }
+        .lookbook-header p { font-size: 1.2rem; font-style: italic; color: #666; }
+       
+        .magazine-layout { display: flex; flex-direction: column; gap: 140px; padding: 0 8% 120px; max-width: 1600px; margin: 0 auto; }
+        .editorial-section { display: flex; flex-direction: column; gap: 30px; }
+        .editorial-text h4 { font-family: 'Playfair Display', serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); margin-bottom: 10px; }
+        .editorial-text h3 { font-family: 'Playfair Display', serif; font-size: 2.5rem; line-height: 1.2; margin-bottom: 20px; }
+        .editorial-text p { color: #555; font-size: 1.1rem; line-height: 1.8; max-width: 800px; margin-bottom: 20px; }
+       
+        .image-pair-row { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .showroom-img-box { height: 550px; overflow: hidden; position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.03); background-color: #eee; }
+        .showroom-img-box img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+        .showroom-img-box:hover img { transform: scale(1.03); }
+        .img-label { position: absolute; bottom: 20px; left: 20px; background: rgba(26,26,26,0.9); color: white; padding: 6px 15px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; }
+
+        /* --- About Section & CEO Layout --- */
+        .about-container { padding: 80px 8%; max-width: 1400px; margin: 0 auto; }
+        .about-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 120px; align-items: center; }
+        .about-intro h2 { font-family: 'Playfair Display', serif; font-size: 3.5rem; line-height: 1.1; color: var(--obsidian); }
+        .about-intro h2 span { color: var(--gold); font-style: italic; }
+        .about-intro p { font-size: 1.1rem; color: #555; line-height: 1.8; }
+       
+        .ceo-profile { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; background: white; padding: 60px; border: 1px solid rgba(0,0,0,0.05); }
+        .ceo-image { height: 600px; overflow: hidden; position: relative; }
+        .ceo-image img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+        .ceo-text h3 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 5px; }
+        .ceo-title { text-transform: uppercase; font-size: 0.8rem; letter-spacing: 3px; color: var(--gold); font-weight: 600; margin-bottom: 30px; display: block; }
+        .ceo-quote { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-style: italic; color: var(--charcoal); margin-bottom: 25px; line-height: 1.5; border-left: 3px solid var(--gold); padding-left: 20px; }
+        .ceo-bio { color: #555; margin-bottom: 15px; font-size: 1.05rem; }
+
+        /* --- Services Page Layout --- */
+        .services-container { padding: 80px 8%; max-width: 1400px; margin: 0 auto; }
+        .services-header { text-align: center; max-width: 800px; margin: 0 auto 80px; }
+        .services-header h2 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; }
+        .services-header p { font-size: 1.15rem; color: #666; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
+        .service-card { background: var(--soft-white); padding: 50px; border: 1px solid rgba(0,0,0,0.04); transition: var(--transition); }
+        .service-card:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 20px 40px rgba(0,0,0,0.02); }
+        .service-num { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--gold); font-style: italic; display: block; margin-bottom: 20px; }
+        .service-card h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 15px; color: var(--obsidian); }
+        .service-card p { color: #666; font-size: 1rem; line-height: 1.7; }
+
+        /* --- Contact Page Layout --- */
+        .contact-container { padding: 100px 8%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
+        .contact-info h2 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; line-height: 1.1; }
+        .contact-info p { color: #555; font-size: 1.1rem; margin-bottom: 40px; }
+        .info-item { margin-bottom: 30px; }
+        .info-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); font-weight: 600; display: block; margin-bottom: 5px; }
+        .info-value { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--obsidian); text-decoration: none; }
+       
+        .contact-form-box { background: var(--soft-white); padding: 50px; border: 1px solid rgba(0,0,0,0.05); }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; display: block; margin-bottom: 8px; }
+        .form-control { width: 100%; padding: 1rem; border: 1px solid #ddd; background: var(--alabaster); font-family: inherit; font-size: 1rem; color: var(--obsidian); transition: var(--transition); }
+        .form-control:focus { outline: none; border-color: var(--gold); background: #fff; }
+        textarea.form-control { height: 150px; resize: none; }
+
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .image-pair-row { grid-template-columns: 1fr; }
+            .showroom-img-box, .ceo-image { height: 380px; }
+            .about-intro, .ceo-profile, .contact-container { grid-template-columns: 1fr; gap: 40px; }
+            .contact-form-box { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="brand-block" onclick="showPage('home')">
+<div class="logo-container">
+    <!-- Drop your Google Drive logo file ID in the URL below -->
+    <img src="https://lh3.googleusercontent.com/u/0/d/1IdPkARfE58WjfN3NWxrdaQQuy1mhEYFB" alt="Baribon Logo" style="width: 100%; height: 100%; object-fit: contain;">
+</div>
+            <div class="text-block">
+                <span class="brand-main">Baribon</span>
+                <span class="brand-sub">Company Ltd</span>
+                <span class="brand-tagline">Luxury Interior Design Accra</span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a onclick="showPage('home')">Home</a>
+            <a onclick="showPage('portfolio-main')">Portfolio</a>
+            <a onclick="showPage('about')">About</a>
+            <a onclick="showPage('services')">Services</a>
+            <a onclick="showPage('contact')">Contact</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- 1. HOME VIEW -->
+        <div id="home" class="page-view active">
+            <header class="hero">
+                <div class="hero-content">
+                    <h1>Curated Spaces. <br>Executive Living.</h1>
+                    <p>Bespoke luxury furnishing and premium interior design packages turnkey-scaled for Accra's flagship properties.</p>
+                    <button class="btn-gold" onclick="showPage('portfolio-main')">View Master Portfolios</button>
+                </div>
+            </header>
+        </div>
+
+        <!-- 2. PORTFOLIO MASTER DIRECTORY -->
+        <div id="portfolio-main" class="page-view">
+            <div class="directory-grid">
+                <div class="directory-item" onclick="showPage('lookbook-obsidian')">
+                    <img src="https://images.pexels.com/photos/6301174/pexels-photo-6301174.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Obsidian">
+                    <div class="directory-overlay">
+                        <p>Brutalist Luxury & High-Contrast Mattes</p>
+                        <h3>The Obsidian Suite</h3>
+                    </div>
+                </div>
+                <div class="directory-item" onclick="showPage('lookbook-alabaster')">
+                    <img src="https://images.pexels.com/photos/36429334/pexels-photo-36429334.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Alabaster">
+                    <div class="directory-overlay">
+                        <p>Soft Minimalism & Airy Linen Textures</p>
+                        <h3>The Alabaster Residence</h3>
+                    </div>
+                </div>
+                <div class="directory-item" onclick="showPage('lookbook-heritage')">
+                    <img src="https://images.pexels.com/photos/37110856/pexels-photo-37110856.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Heritage">
+                    <div class="directory-overlay">
+                        <p>Rich Earth Stones, Polished Brass & Velvet</p>
+                        <h3>The Heritage Penthouse</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+      -- 3. PORTFOLIO SUBPAGES (OBSIDIAN, ALABASTER, HERITAGE) -->
+        <div id="lookbook-obsidian" class="page-view">
+            <div class="lookbook-header">
+                <h2>The Obsidian Suite</h2>
+                <p>An interior furnishing blueprint defined by ultra-sleek matte black elements, cool slate, custom metal framework, and dramatic high-contrast lines.</p>
+            </div>
+            <div class="magazine-layout">
+                <div class="editorial-section">
+                    <div class="editorial-text">
+                        <h4>Volume I &bull; Public Spaces</h4>
+                        <h3>The Formal Lounge & Guest Powder Room</h3>
+                        <p>The main living landscape is grounded by architectural low-profile charcoal sofas, smoked glass accent tables, and structured monochrome fabrics. The adjacent guest half-bath features a minimalist dark volcanic stone floating basin setup.</p>
+                    </div>
+                    <div class="image-pair-row">
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/6301174/pexels-photo-6301174.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Lounge"><div class="img-label">Formal Lounge</div></div>
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/6394610/pexels-photo-6394610.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Powder"><div class="img-label">Half Bathroom</div></div>
+                    </div>
+                </div>
+                <div class="editorial-section">
+                    <div class="editorial-text">
+                        <h4>Volume II &bull; Culinary Showroom</h4>
+                        <h3>The Quartz Chef's Kitchen</h3>
+                        <p>Bespoke matte-black handleless cabinetry houses perfectly flush stainless steel appliances. The center of the room showcases a breathtaking cascading dark marble island fitted with minimalist down-lighting fixtures.</p>
+                    </div>
+                    <div class="image-pair-row">
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/6264414/pexels-photo-6264414.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Kitchen"><div class="img-label">Chef's Kitchen</div></div>
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/34945636/pexels-photo-34945636.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Dining"><div class="img-label">Integrated Dining</div></div>
+                    </div>
+                </div>
+                <div class="editorial-section">
+                    <div class="editorial-text">
+                        <h4>Volume III &bull; Private Quarters</h4>
+                        <h3>The Bedroom Suite & Master Bath</h3>
+                        <p>A grand master suite anchored by an upholstered dark velvet floating platform bed frame with geometric tufting. It connects into a luxury ensuite bath boasting double vanities, walk-in glass shower, and a soaking tub.</p>
+                    </div>
+                    <div class="image-pair-row">
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/13722896/pexels-photo-13722896.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Bed"><div class="img-label">Master Bedroom</div></div>
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/13722861/pexels-photo-13722861.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Bath"><div class="img-label">Master Bath & Tub</div></div>
+                    </div>
+                </div>
+                <div class="editorial-section">
+                    <div class="editorial-text">
+                        <h4>Volume IV &bull; Productivity & Leisure</h4>
+                        <h3>The Command Study & Executive Playroom</h3>
+                        <p>A corporate remote office utilizing acoustically insulated furniture trims, sleek structures, and custom workspace systems. The room opens out to a high-end media entertainment playroom featuring billiards and low sectionals.</p>
+                    </div>
+                    <div class="image-pair-row">
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/35058546/pexels-photo-35058546.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Study"><div class="img-label">Executive Study</div></div>
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/10743870/pexels-photo-10743870.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Playroom"><div class="img-label">Media Playroom</div></div>
+                    </div>
+                </div>
+                <center><button class="btn-gold" onclick="showPage('portfolio-main')">Return to Master Directory</button></center>
+            </div>
+        </div>
+
+        <div id="lookbook-alabaster" class="page-view">
+            <div class="lookbook-header">
+                <h2>The Alabaster Residence</h2>
+                <p>An interior scheme radiating airy luxury, incorporating soft travertine elements, premium light ivory linens, and gleaming champagne gold hardware finishes.</p>
+            </div>
+            <div class="magazine-layout">
+                <div class="editorial-section">
+                    <div class="editorial-text">
+                        <h4>Volume I &bull; Ethereal Spaces</h4>
+                        <h3>The Great Living Room & Powder Room</h3>
+                        <p>Draped in textured light cream lounge setups, neutral area rugs, and clean ivory tones to produce an immaculate, breezy indoor setting. The half bathroom showcases a custom cast-concrete clean vanity space.</p>
+                    </div>
+                    <div class="image-pair-row">
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/36429334/pexels-photo-36429334.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Lounge"><div class="img-label">Great Room</div></div>
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/20035881/pexels-photo-20035881.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Bath"><div class="img-label">Powder Room</div></div>
+                    </div>
+                </div>
+                <div class="editorial-section">
+                    <div class="editorial-text">
+                        <h4>Volume II &bull; Light Bright Culinary</h4>
+                        <h3>The Travertine Kitchen & Dining Arrangement</h3>
+                        <p>Beautiful matte white cabinets pair smoothly with solid white counter surfaces. Clean architectural lighting setups tie the open dining layout together neatly.</p>
+                    </div>
+                    <div class="image-pair-row">
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/6301168/pexels-photo-6301168.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Kitchen"><div class="img-label">Travertine Kitchen</div></div>
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/3144581/pexels-photo-3144581.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Dining"><div class="img-label">Dining Setting</div></div>
+                    </div>
+                </div>
+                <div class="editorial-section">
+                    <div class="editorial-text">
+                        <h4>Volume III &bull; Soft Sanctuary</h4>
+                        <h3>The Master Sanctuary & Double Vanity Ensuite</h3>
+                        <p>A soft, modern upholstered premium bed layout matched with airy minimalist decor. The master bathroom is heavily appointed with sandstone floor setups and elegant double vanity layouts.</p>
+                    </div>
+                    <div class="image-pair-row">
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/37468265/pexels-photo-37468265.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Bed"><div class="img-label">Master Bed</div></div>
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/19889124/pexels-photo-19889124.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Bath"><div class="img-label">Ensuite Spa</div></div>
+                    </div>
+                </div>
+                <div class="editorial-section">
+                    <div class="editorial-text">
+                        <h4>Volume IV &bull; Crisp Focus</h4>
+                        <h3>The Creative Home Office & Sunlit Playroom</h3>
+                        <p>Featuring a smooth marble workspace desk paired with clean architectural chairs. The connected indoor family space layout utilizes bright minimalist organizational frameworks.</p>
+                    </div>
+                    <div class="image-pair-row">
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/33342710/pexels-photo-33342710.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Study"><div class="img-label">Creative Study</div></div>
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/3747416/pexels-photo-3747416.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Playroom"><div class="img-label">Family Playroom</div></div>
+                    </div>
+                </div>
+                <center><button class="btn-gold" onclick="showPage('portfolio-main')">Return to Master Directory</button></center>
+            </div>
+        </div>
+
+        <div id="lookbook-heritage" class="page-view">
+            <div class="lookbook-header">
+                <h2>The Heritage Penthouse</h2>
+                <p>A magnificent masterclass in warm tones, utilizing rich earthy plasters, premium polished brass profiles, custom caramel leathers, and deep velvet elements.</p>
+            </div>
+            <div class="magazine-layout">
+                <div class="editorial-section">
+                    <div class="editorial-text">
+                        <h4>Volume I &bull; High Sovereign Textures</h4>
+                        <h3>The Sovereign Living Area & Luxury Powder Room</h3>
+                        <p>Draped nicely in rich custom caramel leather lounge elements, heavy luxury plaster walls, and warm architectural tones. The guest powder room features a striking sink setup with custom brass accents.</p>
+                    </div>
+                    <div class="image-pair-row">
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/37110856/pexels-photo-37110856.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Lounge"><div class="img-label">Sovereign Lounge</div></div>
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/36718391/pexels-photo-36718391.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Bath"><div class="img-label">Powder Room</div></div>
+                    </div>
+                </div>
+                <div class="editorial-section">
+                    <div class="editorial-text">
+                        <h4>Volume II &bull; Golden Hour Entertaining</h4>
+                        <h3>The Marble & Brass Executive Kitchen</h3>
+                        <p>Centering around an incredible residential kitchen project, backed by premium dark cabinetry facades and polished brass accents that gleam warmly under internal spotlights.</p>
+                    </div>
+                    <div class="image-pair-row">
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Kitchen"><div class="img-label">Executive Kitchen</div></div>
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/34086259/pexels-photo-34086259.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Dining"><div class="img-label">Dining Table Setup</div></div>
+                    </div>
+                </div>
+                <div class="editorial-section">
+                    <div class="editorial-text">
+                        <h4>Volume III &bull; Velvet Sanctuaries</h4>
+                        <h3>The Primary Bedroom & Green Stone Spa Bath</h3>
+                        <p>Featuring a cozy, modern executive bedroom framework with elegant indoor plants. The suite connects seamlessly into an attached master bath showing crisp mirror paneling and warm brass dual-sink alignments.</p>
+                    </div>
+                    <div class="image-pair-row">
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/34903881/pexels-photo-34903881.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Bed"><div class="img-label">Primary Suite</div></div>
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/34405780/pexels-photo-34405780.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Bath"><div class="img-label">Spa Ensuite</div></div>
+                    </div>
+                </div>
+                <div class="editorial-section">
+                    <div class="editorial-text">
+                        <h4>Volume IV &bull; Dynamic Workspace</h4>
+                        <h3>The Corner Study & Connected Media Lounge</h3>
+                        <p>Featuring contemporary home office design elements, rich leather chairs, and accent task lighting profiles. The study transitions straight into a luxurious, deep modern television media lounge framework.</p>
+                    </div>
+                    <div class="image-pair-row">
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/8082233/pexels-photo-8082233.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Study"><div class="img-label">Corner Study</div></div>
+                        <div class="showroom-img-box"><img src="https://images.pexels.com/photos/33344558/pexels-photo-33344558.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Playroom"><div class="img-label">Media Lounge</div></div>
+                    </div>
+                </div>
+                <center><button class="btn-gold" onclick="showPage('portfolio-main')">Return to Master Directory</button></center>
+            </div>
+        </div>
+<!-- 4. ABOUT SECTION (Now fully linked to mom_linkedin.jpg) -->
+        <div id="about" class="page-view">
+            <div class="about-container">
+                <div class="about-intro">
+                    <h2>The Legacy of <span>Exclusivity</span>.</h2>
+                    <div>
+                        <p>Baribon Company Ltd is a premier luxury interior design firm specializing in the creation of sophisticated, elegant, and timeless spaces. We are dedicated to transforming interiors into refined environments that embody comfort, elite status, and exceptional craftsmanship.</p>
+                        <br>
+                        <p>With an uncompromising eye for architectural proportion and a profound passion for design excellence, Baribon delivers bespoke, turnkey environments tailored specifically to mirror the high-stakes lifestyles and global aspirations of business executives in the heart of Accra.</p>
+                    </div>
+                </div>
+
+                <!-- CEO Profile Spotlight -->
+                <div class="ceo-profile">
+                    <div class="ceo-image">
+                        <!-- Linked directly to your custom file mom_linkedin.jpg -->
+                        <img src="https://lh3.googleusercontent.com/u/0/d/12VljpdYy-mBZYod1ULJZztPKsOKF8qfV" alt="Nana Serwaa Bonsu">
+                    </div>
+                    <div class="ceo-text">
+                        <h3>Nana Serwaa Bonsu</h3>
+                        <span class="ceo-title">Founder & Chief Executive Officer</span>
+                        <p class="ceo-quote">"True luxury is an experience. It is the understated harmony of texture, balance, and fine artistry coming together to form a personal sanctuary."</p>
+                        <p class="ceo-bio">As the sole driving creative force and Principal Designer behind Baribon Company Ltd, Nana Serwaa Bonsu has carved out a distinct niche within West Africa’s elite luxury residential sector.</p>
+                        <p class="ceo-bio">Her signature design philosophy masterfully bridges uncompromising, clean contemporary minimalism with the quiet grandeur of organic African materials. By maintaining a highly selective, boutique operational model, Nana Serwaa guarantees every client receives her undivided focus—bringing a flawless, hands-on masterclass execution to major executive construction campaigns across Accra.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. SERVICES SECTION -->
+        <div id="services" class="page-view">
+            <div class="services-container">
+                <div class="services-header">
+                    <h2>Our Services</h2>
+                    <p>Bespoke interior execution tailored for large-scale construction developments and discerning private clients.</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <span class="service-num">01 / Concept</span>
+                        <h3>High-End Residential Architecture</h3>
+                        <p>Comprehensive interior layout layouts prioritizing cross-ventilation, natural illumination containment, and elite spatial flow for multi-bedroom luxury frameworks.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">02 / Curation</span>
+                        <h3>Bespoke Furniture Design & Customization</h3>
+                        <p>Sourcing and manufacturing tailored furniture packages. We specialize in custom leather configurations, high-performance textiles, and elegant stone tables.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">03 / Synergy</span>
+                        <h3>Space Planning & Layout Coordination</h3>
+                        <p>Maximizing square footage efficiency for flagship commercial, hospitality, or residential builds before ground is broken.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">04 / Materiality</span>
+                        <h3>Premium Finish & Material Curation</h3>
+                        <p>Direct wholesale logistics and material curation for ultra-premium travertine slabs, book-matched marbles, brushed brasses, and climate-resilient finishes.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">05 / Logistics</span>
+                        <h3>Turnkey Interior Management Scaling</h3>
+                        <p>End-to-end white-glove project deployment designed specifically to scale over major construction deadlines, such as 100-home flagship executive campaigns.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">06 / Styling</span>
+                        <h3>Bespoke Curating & Creative Placement</h3>
+                        <p>Final styling sweeps, integrating selective high-end fine arts, lush tropical botanicals, and bespoke accessory accents to deliver spaces fully prepared for living.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. CONTACT SECTION -->
+        <div id="contact" class="page-view">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>Let's Secure <br>The Vision.</h2>
+                    <p>Partner with Baribon Company Ltd to establish the ultimate benchmark of executive luxury in Accra.</p>
+                   
+                    <div class="info-item">
+                        <span class="info-label">Direct Office Line</span>
+                        <a href="tel:+233240001234" class="info-value">+233 24 000 1234</a>
+                    </div>
+                   
+                    <div class="info-item">
+                        <span class="info-label">Corporate Inquiries</span>
+                        <a href="mailto:nbroomie1234@gmail.com" class="info-value">nbroomie1234@gmail.com</a>
+                    </div>
+                </div>
+
+                <div class="contact-form-box">
+                    <form action="mailto:nbroomie1234@gmail.com" method="post" enctype="text/plain">
+                        <div class="form-group">
+                            <label for="name">Project Director / Full Name</label>
+                            <input type="text" name="Client Name" id="name" class="form-control" required placeholder="e.g., Chief Development Officer">
+                        </div>
+                        <div class="form-group">
+                            <label for="details">Project Requirements / Brief</label>
+                            <textarea name="Project Details" id="details" class="form-control" required placeholder="Detail your construction campaign timeline and specifications here..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-gold">Transmit Proposal Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page-view');
+            pages.forEach(page => page.classList.remove('active'));
+           
+            const targetPage = document.getElementById(pageId);
+            if(targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>
