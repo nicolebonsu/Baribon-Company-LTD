@@ -145,9 +145,11 @@
         .form-control:focus { outline: none; border-color: var(--gold); background: #fff; }
         textarea.form-control { height: 150px; resize: none; }
 
-        @media (max-width: 900px) {
-            .nav-links { display: none; }
-            .image-pair-row { grid-template-columns: 1fr; }
+@media (max-width: 900px) {
+    nav { flex-direction: column; gap: 15px; text-align: center; padding: 1rem 5%; }
+    .nav-links { margin-top: 10px; display: flex; justify-content: center; width: 100%; }
+    .nav-links a { margin: 0 10px; font-size: 0.7rem; }
+    .image-pair-row { grid-template-columns: 1fr; }
             .showroom-img-box, .ceo-image { height: 380px; }
             .about-intro, .ceo-profile, .contact-container { grid-template-columns: 1fr; gap: 40px; }
             .contact-form-box { padding: 30px; }
